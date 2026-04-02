@@ -5,45 +5,17 @@ import {
   ISendMessages,
   ICreateRole,
   IDeletedRole,
-  ISignUp,
-  IVerifyUser,
-  IPWDRecoveryCode,
-  IPWDRecoveryChange,
 } from "./types";
 import { API_BASE_URL } from "./appConfig";
 
 const apiURL = API_BASE_URL;
-
 const normalizeBase = (base: string) => (base.endsWith("/") ? base : `${base}/`);
-
-async function login(data: any) {
-  const headers = {
-    Accept: "application/json",
-    "Content-Type": "application/json",
-  };
-
-  try {
-    const urlComplete = `${normalizeBase(apiURL)}login`;
-    const response = await axios.post(urlComplete, data, {
-      headers,
-    });
-    return response.data;
-  } catch (error) {
-    console.log(error);
-    return error;
-  }
-}
-
-async function demoLogin(data: any) {
-  return login(data);
-}
 
 async function mainGet(props: IMainGet) {
   const { apiURL: urlBase, method } = props;
 
   try {
     const urlComplete = `${normalizeBase(urlBase)}${method}`;
-
     const response = await axios.get(urlComplete);
     return response.data;
   } catch (error) {
@@ -57,7 +29,6 @@ async function mainPost(props: IMainPost) {
 
   try {
     const urlComplete = `${normalizeBase(urlBase)}${method}`;
-
     const response = await axios.post(urlComplete, data);
     if (response.status >= 200 && response.status < 300) {
       return response.data;
@@ -69,32 +40,6 @@ async function mainPost(props: IMainPost) {
     }
     return { message: error };
   }
-}
-
-function signUp(props: ISignUp) {
-  const { name, lastName, email, password } = props;
-  return mainPost({
-    apiURL,
-    method: "sign_up",
-    data: {
-      name,
-      lastname: lastName,
-      email,
-      password,
-    },
-  });
-}
-
-function verifyUser(props: IVerifyUser) {
-  const { email, verification_code } = props;
-  return mainPost({
-    apiURL,
-    method: "sign_up/verify_user",
-    data: {
-      email,
-      verification_code,
-    },
-  });
 }
 
 function getMessagesByRol(rol: number) {
@@ -116,32 +61,6 @@ function sendMessages({ query, rol }: ISendMessages) {
     data: {
       query,
       rol,
-    },
-  });
-}
-
-function passwordRecovery({ email }: IPWDRecoveryCode) {
-  return mainPost({
-    apiURL,
-    method: "pwdrecovery/get_code",
-    data: {
-      email,
-    },
-  });
-}
-
-function passwordRecoveryChange({
-  email,
-  recovery_code,
-  password,
-}: IPWDRecoveryChange) {
-  return mainPost({
-    apiURL,
-    method: "pwdrecovery/change",
-    data: {
-      email,
-      recovery_code,
-      password,
     },
   });
 }
@@ -192,8 +111,6 @@ function deleteFile(fileName: string) {
 
 export default {
   getMessagesByRol,
-  login,
-  demoLogin,
   getAllRoles,
   sendMessages,
   createRole,
@@ -201,8 +118,4 @@ export default {
   deletedRole,
   getFiles,
   deleteFile,
-  signUp,
-  verifyUser,
-  passwordRecovery,
-  passwordRecoveryChange,
 };

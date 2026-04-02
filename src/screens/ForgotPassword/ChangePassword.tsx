@@ -4,7 +4,6 @@ import {
   Col,
   Container,
   Form,
-  Image,
   Navbar,
   OverlayTrigger,
   Row,
@@ -53,7 +52,7 @@ function ChangePassword() {
   const { password, confirmPassword, recovery_code } = form;
 
   const validateForm = () => {
-    let newErrors = {
+    const newErrors = {
       recovery_code: "",
       password: "",
       confirmPassword: "",
@@ -71,24 +70,24 @@ function ChangePassword() {
       newErrors.confirmPassword = "Confirm Password is required";
     }
 
-    if (password !== confirmPassword) {
+    if (password && confirmPassword && password !== confirmPassword) {
       newErrors.confirmPassword = "Passwords do not match";
     }
 
-    if (password.length < 8) {
+    if (password && password.length < 8) {
       newErrors.password = "Password must be at least 8 characters long";
     }
 
-    if (!password.match(/[A-Z]/g)) {
+    if (password && !password.match(/[A-Z]/g)) {
       newErrors.password =
         "Password must contain at least one uppercase letter";
     }
 
-    if (!password.match(/[0-9]/g)) {
+    if (password && !password.match(/[0-9]/g)) {
       newErrors.password = "Password must contain at least one digit";
     }
 
-    if (!password.match(/[#?!@$%^&-']/g)) {
+    if (password && !password.match(/[#?!@$%^&-']/g)) {
       newErrors.password =
         "Password must contain at least one special character";
     }
@@ -269,9 +268,7 @@ function ChangePassword() {
                 ) : (
                   data?.message && (
                     <div className="d-flex flex-column align-items-center">
-                      <p className="text-danger text-center">
-                        {data?.message}
-                      </p>
+                      <p className="text-danger text-center">{data?.message}</p>
 
                       {data?.message ===
                         "Password changed. Now you can log in" && (
@@ -304,11 +301,9 @@ function ChangePassword() {
               KnowledgeOps-AI
             </h1>
 
-            <h3
-              className="w-75 mt-4"
-              style={{ color: Colors.white.primary }}
-            >
-              Secure enterprise knowledge, document intelligence, and AI workflows — all in one place.
+            <h3 className="w-75 mt-4" style={{ color: Colors.white.primary }}>
+              Secure enterprise knowledge, document intelligence, and AI
+              workflows — all in one place.
             </h3>
           </Container>
         </Col>

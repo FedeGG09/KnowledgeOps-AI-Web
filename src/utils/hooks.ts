@@ -4,99 +4,47 @@ import { IUploadFile } from "./types";
 
 export function useMessagesByRol(rol: number) {
   const { data, isLoading } = useQuery({
-    queryKey: ["messages"],
+    queryKey: ["messages", rol],
     queryFn: () => https.getMessagesByRol(rol).then((res) => res),
   });
-  return {
-    data,
-    isLoading,
-  };
+
+  return { data, isLoading };
 }
 
 export function useAllRoles() {
-  const {
-    data,
-    isLoading,
-    refetch: refetchAllRoles,
-  } = useQuery({
+  const { data, isLoading, refetch: refetchAllRoles } = useQuery({
     queryKey: ["allRoles"],
-    queryFn: () =>
-      https.getAllRoles().then((res) => {
-        return res;
-      }),
+    queryFn: () => https.getAllRoles().then((res) => res),
   });
-  return {
-    data,
-    isLoading,
-    refetchAllRoles,
-  };
+
+  return { data, isLoading, refetchAllRoles };
 }
 
 export function useViewFiles() {
-  const {
-    data,
-    isLoading,
-    refetch: refetchFiles,
-  } = useQuery({
+  const { data, isLoading, refetch: refetchFiles } = useQuery({
     queryKey: ["viewFiles"],
-    queryFn: () =>
-      https.getFiles().then((res) => {
-        return res;
-      }),
+    queryFn: () => https.getFiles().then((res) => res),
   });
-  return {
-    data,
-    isLoading,
-    refetchFiles,
-  };
+
+  return { data, isLoading, refetchFiles };
 }
 
 export function useSendMessage({ query, rol }: { query: string; rol: number }) {
   const { data, isLoading } = useQuery({
-    queryKey: ["sendMessage"],
+    queryKey: ["sendMessage", query, rol],
     queryFn: () =>
       https.sendMessages({ query, rol }).then((res) => {
-        console.log(`
-          useSendMessage: ${JSON.stringify(res)}
-        `);
+        console.log(`useSendMessage: ${JSON.stringify(res)}`);
         return res;
       }),
   });
-  return {
-    data,
-    isLoading,
-  };
-}
 
-export function useMutationSignUp({ setResponse }: { setResponse: any }) {
-  return useMutation({
-    mutationFn: (data: any) => https.signUp(data),
-    onSuccess: (data: any) => {
-      console.log("success");
-      setResponse(data);
-    },
-    onError: (error) => {
-      setResponse(error);
-    },
-  });
-}
-
-export function useMutationVerifyUser({ setResponse }: { setResponse: any }) {
-  return useMutation({
-    mutationFn: (data: any) => https.verifyUser(data),
-    onSuccess: (data: any) => {
-      console.log("success");
-      setResponse(data);
-    },
-    onError: (error) => {
-      setResponse(error);
-      console.log(error);
-    },
-  });
+  return { data, isLoading };
 }
 
 export function useMutationCreateRole() {
   const { refetchAllRoles } = useAllRoles();
+
   return useMutation({
     mutationFn: (data: any) => https.createRole(data),
     onSuccess: () => {
@@ -108,32 +56,9 @@ export function useMutationCreateRole() {
   });
 }
 
-export function useMutationRecoveryCode() {
-  return useMutation({
-    mutationFn: (data: any) => https.passwordRecovery(data),
-    onSuccess: () => {
-      console.log("success useMutationRecoveryCode");
-    },
-    onError: (error) => {
-      console.log(error);
-    },
-  });
-}
-
-export function useMutationRecoveryChange() {
-  return useMutation({
-    mutationFn: (data: any) => https.passwordRecoveryChange(data),
-    onSuccess: () => {
-      console.log("success useMutationRecoveryChange");
-    },
-    onError: (error) => {
-      console.log(error);
-    },
-  });
-}
-
 export function useMutationUploadFile({ setLoading, setFiles }: IUploadFile) {
   const { refetchFiles } = useViewFiles();
+
   return useMutation({
     mutationKey: ["uploadFile"],
     mutationFn: (data: any) => https.uploadFile(data),
@@ -151,6 +76,7 @@ export function useMutationDeleteFile({
   handleFinishDeleteFile: any;
 }) {
   const { refetchFiles } = useViewFiles();
+
   return useMutation({
     mutationKey: ["deleteFile"],
     mutationFn: (data: any) => https.deleteFile(data),

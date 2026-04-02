@@ -1,7 +1,7 @@
 {
   "name": "knowledgeops-ai",
   "private": true,
-  "version": "0.0.0",
+  "version": "1.0.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -13,6 +13,7 @@
     "@fortawesome/fontawesome-svg-core": "^6.4.2",
     "@fortawesome/free-solid-svg-icons": "^6.4.2",
     "@fortawesome/react-fontawesome": "^0.2.0",
+    "@popperjs/core": "^2.11.8",
     "@reduxjs/toolkit": "^1.9.7",
     "@tanstack/react-query": "^5.13.4",
     "axios": "^1.6.0",
@@ -23,6 +24,7 @@
     "react-dropzone": "^14.2.3",
     "react-redux": "^8.1.3",
     "react-router-dom": "^6.17.0",
+    "redux": "^4.2.1",
     "redux-persist": "^6.0.0",
     "styled-components": "^6.1.0"
   },

@@ -10,7 +10,7 @@ import {
   IPWDRecoveryCode,
   IPWDRecoveryChange,
 } from "./types";
-import { API_BASE_URL, DEMO_LOGIN_PATH } from "./appConfig";
+import { API_BASE_URL } from "./appConfig";
 
 const apiURL = API_BASE_URL;
 
@@ -35,18 +35,7 @@ async function login(data: any) {
 }
 
 async function demoLogin(data: any) {
-  const headers = {
-    Accept: "application/json",
-    "Content-Type": "application/json",
-  };
-
-  try {
-    const response = await axios.post(DEMO_LOGIN_PATH, data, { headers });
-    return response.data;
-  } catch (error) {
-    console.warn("Demo login endpoint unavailable, falling back to backend login.");
-    return login(data);
-  }
+  return login(data);
 }
 
 async function mainGet(props: IMainGet) {

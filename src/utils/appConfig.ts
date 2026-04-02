@@ -3,7 +3,7 @@ export const APP_NAME =
 
 export const APP_TAGLINE =
   import.meta.env.VITE_TAGLINE ??
-  "Enterprise document intelligence demo";
+  "Enterprise AI Knowledge Platform";
 
 export const API_BASE_URL =
   import.meta.env.VITE_API_BASE_URL ??

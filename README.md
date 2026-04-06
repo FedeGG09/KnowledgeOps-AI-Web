@@ -1,6 +1,9 @@
 # KnowledgeOps-AI
 
-Portfolio-ready document intelligence frontend built with React, TypeScript and Vite.
+Document intelligence frontend built with React, TypeScript and Vite.
+
+<img width="1874" height="872" alt="image" src="https://github.com/user-attachments/assets/80da9169-f008-490b-a6a6-4d614f6dcb13" />
+
 
 ## What this demo shows
 
@@ -20,3 +23,6 @@ npm run dev
 ## Interactive demo:
 
 https://knowledgeopsai.lovable.app/
+
+<img width="1889" height="880" alt="image" src="https://github.com/user-attachments/assets/19aab7fc-f2f8-44b8-93e7-8d3b19554b75" />
+
